@@ -1,19 +1,6 @@
-/** 변수 : 자료를 저장할 수 있는 이름이 주어진 기억장소
- *  -> 저장된 값을 잘 나타낼 수 있는 구체적인 의미있는 이름이어야 한다!!
- *  -> 함수표현식을 의미있는 이름을 부여한 변수로 추출하면 코드의 목적이 훨씬 명확해진다.
- *  + 긴 표현식을 변수단위로 나누어 놓으면 디버깅도 훨씬 편해진다. 오류가 났을 때 어디서 오류가 났는 지 확인하기 좋다.
- * 
- *  => 변수추출과 변수인라인하기 리팩토링
- */
-
-
-// 주문을 전달받아 가격을 계산하는 함수
 export function price(order) {
-  // 가격(price) = 기본가격 - 수량할인 + 배송비 => 를 바로 계산해서 리턴해서 주석이 없다면 이해하기 어렵다. === 나쁜 냄새
-  // 긴 표현식을 잘라서 의미 있는 이름을 정해주는 것이 가독성을 높일 수 있다.
-  return (
-    order.quantity * order.itemPrice -
-    Math.max(0, order.quantity - 500) * order.itemPrice * 0.05 +
-    Math.min(order.quantity * order.itemPrice * 0.1, 100)
-  );
+  const basePrice = order.quantity * order.itemPrice;
+  const discount = Math.max(0, order.quantity - 500) * order.itemPrice * 0.05;
+  const shipping = Math.min(order.quantity * order.itemPrice * 0.1, 100);
+  return basePrice - discount + shipping;
 }
