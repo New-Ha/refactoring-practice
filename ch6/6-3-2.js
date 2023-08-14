@@ -1,16 +1,21 @@
+// class 에서 변수 추출하기
+
 export class Order {
+  // private field를 이용할 때 _를 사용하는 대신, 최근에는 #data; 를 선언하고 #data를 사용하는 것이 좋다!
+  #data;
   constructor(aRecord) {
-    this._data = aRecord;
+    this.#data = aRecord;
   }
 
   get quantity() {
-    return this._data.quantity;
+    return this.#data.quantity;
   }
   get itemPrice() {
-    return this._data.itemPrice;
+    return this.#data.itemPrice;
   }
 
   get price() {
+    // 클래스 안이라도, return 계산이 길다면 변수로 추출해주는 것이 좋다!
     return (
       this.quantity * this.itemPrice -
       Math.max(0, this.quantity - 500) * this.itemPrice * 0.05 +
