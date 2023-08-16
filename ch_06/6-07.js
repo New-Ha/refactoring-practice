@@ -1,13 +1,6 @@
-/** 변수 이름 바꾸기
- * 의미 있는 이름으로 바꾸기
- */
+let area = width * height;
 
-// 영역을 계산하는 a -> 찾아 봐야지만 알 수 있다.
-let a = height * width;
+const companyName = '애플';
 
-// 너무 축약이 되어서 한참 생각해서 유추해야 한다면, 그냥 구체적으로 적는 것이 좋다.
-const cpyNm = '애플';
-
-
-let tpHd = '제목없음';
-let result = `<h1>${tpHd}</h1>`;
+let title = '제목없음';
+let result = `<h1>${title}</h1>`;
