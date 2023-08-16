@@ -26,7 +26,6 @@ export class Reading {
         return this.#year;
     }
 
-    // 밀접하게 관련 있는 계산이므로 안으로 위치하면서 함수가 아닌 get으로 만들어두면 속성에 접근하듯 사용 가능
     get baseRate {
       if (this.#year === 2017 && this.#month === 5) return 0.1;
       return 0.2;
