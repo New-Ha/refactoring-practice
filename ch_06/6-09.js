@@ -1,3 +1,7 @@
+/** (변환함수방법과의 차이점)) 
+ * class의 get을 사용하면 데이터가 나중에 변경이 되어도
+ * 변경된 데이터를 기반으로 해서 get하는 시점의 데이터를 기반으로 계산, 처리
+ */
 export class Reading {
     #customer;
     #quantity;
