@@ -1,9 +1,13 @@
+// 함수에 매개변수가 여러개라면 그 중에 하나의 객체로 묶을 수 있는 것을 찾아보고
+// 그 객체 안에 더 유용한 함수를 만들 수 있나 고민해보자!
+
 
 export function readingsOutsideRange(station, range) {
-  return station.readings.filter((r) => r.temp < range.min || r.temp > range.max);
+  return station.readings.filter((r) => !range.contains(r.temp));
 }
 
 // 온도가 범위내인지 검사하는 함수를 따로 두면 더 유용할 수 있다.
+// 데이터를 담고 있는 객체와 처리하는 로직이 분리되어 있기 보다는 함께 있는 것이 좋고, 원래 로직을 처리하던 곳에서는 의미있는 이름을 부여해 가독성을 높일 수 있다.
 export class NumberRange {
   #min;
   #max;
@@ -18,6 +22,10 @@ export class NumberRange {
 
   get max() {
     return this.#max;
+  }
+
+  contains(number) {
+    return number >= this.#min && number <= this.#max;
   }
 }
 
