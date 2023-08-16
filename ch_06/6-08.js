@@ -1,14 +1,24 @@
-/** 매개변수 객체만들기
- * 매개변수는 최대 3개를 넘지 않는 것이 좋다!
- * -> 연관있는 데이터 구조 하나(자료구조, 클래스 등)로 묶어주는 것이
- * 호출이 편하고, 어떤 인자를 필요로 하는지 명확하며, 호출할 때 실수를 줄여준다!
- */
 
-// 정해진 범위를 벗어난 것을 filter하는 함수
-// 매개변수가 아직 3개이나 더 많아지면 갯수가 많아지고 호출할 떄도 힘들어지니, 매개변수를 하나의 객체로 묶어주는 것이 좋다.
-// 최대, 최소를 풀어서 전달하지 않고, 묶어진 객체를 전달!
 export function readingsOutsideRange(station, range) {
-  return station.readings.filter((r) => r.temp < range.temperatureFloor || r.temp > range.temperatureCeiling);
+  return station.readings.filter((r) => r.temp < range.min || r.temp > range.max);
+}
+
+// 온도가 범위내인지 검사하는 함수를 따로 두면 더 유용할 수 있다.
+export class NumberRange {
+  #min;
+  #max;
+  constructor(min, max) {
+    this.#min = min;
+    this.#max = max;
+  }
+
+  get min() {
+    return this.#min;
+  }
+
+  get max() {
+    return this.#max;
+  }
 }
 
 //온도에 대한 기록
@@ -23,15 +33,14 @@ const station = {
   ],
 };
 
-// 최대값과 최소값
-// 순수데이터 객체
-const operationPlan = {
-  temperatureFloor: 51,
-  temperatureCeiling: 53,
-};
+
+// 순수데이터 객체 -> 만든 클래스를 사용해 값을 전달해준다.
+// 매번 긴 이름의 데이터를 사용할 필요가 없다.
+const operationPlan = new NumberRange(51, 53)
 
 
-readingsOutsideRange(
+const result = readingsOutsideRange(
   station,
   operationPlan
 );
+console.log(result)
