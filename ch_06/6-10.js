@@ -20,6 +20,10 @@ export function enrichReading(original) {
     return result;
 }
 
+function taxThreshold(year) {
+    return 0.1;
+}
+
 function calculateBaseCharge(reading) {
     return baseRate(reading.month, reading.year) * reading.quantity;
 }
