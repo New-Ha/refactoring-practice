@@ -1,19 +1,15 @@
 import fs from 'fs';
 
-//1. run 함수를 만들어 노드의 process dependency를 제거.
 run(process.argv);
 
 function run(args) {
-    // 2. 사용자에게 입력을 받아 유효성을 검사하는 부분을 쪼갠다.
     const command = parseCommand(args);
 
-    const rawData = fs.readFileSync(fileName);
-    const orders = JSON.parse(rawData);
-    if (command.countReadyOnly) {
-        console.log(orders.filter(order => order.status === 'ready').length);
-    } else {
-        console.log(orders.length);
-    }
+    //3. 필요한 로직을 따로 빼서 처리
+    countOrders(command);
+
+    //한 줄로 인라인 할수도 있다.
+    //countOrders(parseCommand(args))
 }
 
 function parseCommand(args) {
@@ -26,7 +22,17 @@ function parseCommand(args) {
         throw new Error('파일이 존재하지 않습니다');
     }
 
-    const countReadyOnly = args.includes('-r');
+    // const countReadyOnly = args.includes('-r'); -> return문에 인라인
 
-    return { fileName, countReadyOnly };
+    return { fileName, countReadyOnly: args.includes('-r') };
+}
+
+function countOrders(command) {
+    const rawData = fs.readFileSync(command.fileName);
+    const orders = JSON.parse(rawData);
+    if (command.countReadyOnly) {
+        console.log(orders.filter(order => order.status === 'ready').length);
+    } else {
+        console.log(orders.length);
+    }
 }
