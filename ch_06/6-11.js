@@ -1,13 +1,8 @@
 export function priceOrder(product, quantity, shippingMethod) {
     const basePrice = calculateBasePrice(product, quantity);
     const discount = calculateDiscount(product, quantity);
-
-    // 총 배송비
-    const shippingCost = calculateSippingCost(quantity, shippingMethod);
-
-    //총 가격
-    const price = basePrice - discount + shippingCost;
-    return price;
+    const shippingCost = calculateSippingCost(basePrice, quantity, shippingMethod);
+    return basePrice - discount + shippingCost;
 }
 
 function calculateBasePrice(product, quantity) {
@@ -18,7 +13,7 @@ function calculateDiscount(product, quantity) {
     return Math.max(quantity - product.discountThreshold, 0) * product.basePrice * product.discountRate;
 }
 
-function calculateSippingCost(quantity, shippingMethod) {
+function calculateSippingCost(basePrice, quantity, shippingMethod) {
     const shippingPerCase =
         basePrice > shippingMethod.discountThreshold ? shippingMethod.discountedFee : shippingMethod.feePerCase;
 
