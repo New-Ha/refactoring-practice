@@ -1,9 +1,8 @@
 export function priceOrder(product, quantity, shippingMethod) {
-    // 기본 제품 가격(기본 가격 * 수량)
     const basePrice = calculateBasePrice(product, quantity);
 
     // 할인 가격
-    const discount = Math.max(quantity - product.discountThreshold, 0) * product.basePrice * product.discountRate;
+    const discount = calculateDiscount(product, quantity);
 
     // 개별 배송비 계산
     const shippingPerCase =
@@ -19,6 +18,10 @@ export function priceOrder(product, quantity, shippingMethod) {
 
 function calculateBasePrice(product, quantity) {
     return product.basePrice * quantity;
+}
+
+function calculateDiscount(product, quantity) {
+    return Math.max(quantity - product.discountThreshold, 0) * product.basePrice * product.discountRate;
 }
 
 // 사용 예:
