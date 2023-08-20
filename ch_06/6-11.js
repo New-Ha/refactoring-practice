@@ -1,12 +1,8 @@
 export function priceOrder(product, quantity, shippingMethod) {
-    const basePrice = calculateBasePrice(product, quantity);
+    const basePrice = product.basePrice * quantity;
     const discount = calculateDiscount(product, quantity);
     const shippingCost = calculateSippingCost(basePrice, quantity, shippingMethod);
     return basePrice - discount + shippingCost;
-}
-
-function calculateBasePrice(product, quantity) {
-    return product.basePrice * quantity;
 }
 
 function calculateDiscount(product, quantity) {
